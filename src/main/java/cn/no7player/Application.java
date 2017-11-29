@@ -16,20 +16,21 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-@EnableAutoConfiguration
-@SpringBootApplication
-@ComponentScan
-@MapperScan("cn.no7player.mapper")
+@EnableAutoConfiguration//启用自动配置.
+@SpringBootApplication//应用注解@SpringApplication.
+@ComponentScan//@ComponentScan  设定扫描的包范围,默认为本包及子包.
+@MapperScan("cn.no7player.mapper")//@MapperScan 设定mybatis的mapper包扫描.
 public class Application {
     private static Logger logger = Logger.getLogger(Application.class);
 
-    @Bean
+    @Bean//@Bean注解,将一个Bean交给容器管理.
+    //@ConfigurationProperties导入配置属性,可指定前缀.
     @ConfigurationProperties(prefix="spring.datasource")
     public DataSource dataSource() {
         return new org.apache.tomcat.jdbc.pool.DataSource();
     }
 
-    @Bean
+    @Bean//SqlSessionFactory配置.
     public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
 
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
@@ -42,7 +43,7 @@ public class Application {
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean
+    @Bean//PlatformTransactionManager
     public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
     }

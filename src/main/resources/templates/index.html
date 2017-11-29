@@ -1,10 +1,15 @@
 <!DOCTYPE HTML>
+<!-- 引入thymeleaf模板.安装插件有关链接:http://blog.csdn.net/king_kgh/article/details/76084691 后可以有th:提示 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 <title>Insert title here</title>
 </head>
 <body>
-<h1>index html</h1>
+	<h1>index html</h1>
+	<!-- 利用th属性显示对象https://www.cnblogs.com/suncj/p/4030393.html -->
+	<span th:if="${not #strings.isEmpty(name)}">${name}</span>
+	<!-- span域中的属性将会被取代. -->
+	<span th:text="${name}">name:</span>
 </body>
 </html>

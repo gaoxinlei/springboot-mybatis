@@ -7,12 +7,16 @@
 	<artifactId>springboot-mybatis</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
+	<!-- springboot starter作为parent -->
+	<!-- 关于starter的详细描述:http://blog.csdn.net/chszs/article/details/50610474 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.2.5.RELEASE</version>
 	</parent>
 
+	<!-- properties : sourceEncoding,version.spring,version.jackson,java.version 
+		等. -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.spring>3.2.9.RELEASE</version.spring>
@@ -20,15 +24,19 @@
 		<java.version>1.7</java.version>
 	</properties>
 
+	<!-- 依赖,未指定的,与springboot有关的版本号将为parent中定义的version.本处1.2.5 -->
 	<dependencies>
+		<!-- starter-web,依赖thymeleaf后可以抛弃对starter-web的依赖,同样不需要jsp的依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- springboot 默认的thymeleaf模板引擎. http://blog.csdn.net/u014695188/article/details/52347318 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<!-- starter-jdbc -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
@@ -38,7 +46,7 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-
+		<!-- mybatis适配包 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
@@ -60,7 +68,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 
-        <!---->
+       <!-- fastjson -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
@@ -75,17 +83,18 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>${version.jackson}</version>
+			<!-- <version>${version.jackson}</version> -->
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>${version.jackson}</version>
+			<!-- no need -->
+			<!-- <version>${version.jackson}</version> -->
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>${version.jackson}</version>
+			<!-- <version>${version.jackson}</version> -->
 		</dependency>
 		<!-- jsp 有关 -->
 		<dependency>
@@ -105,6 +114,7 @@
 	<build>
 		<plugins>
 			<plugin>
+			<!-- maven boot 插件 -->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
@@ -113,6 +123,7 @@
 
 	<repositories>
 		<repository>
+		<!-- 仓库配置 -->
 			<id>spring-milestone</id>
 			<url>https://repo.spring.io/libs-release</url>
 		</repository>
