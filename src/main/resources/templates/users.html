@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8"/>
 <title>Insert title here</title>
 </head>
 <body>
 <h2>users.html</h2>
+<h2>显示所有user</h2>
+<table>
+	<tr>
+		<th>id</th>
+		<th>用户名</th>
+		<th>密码</th>
+	</tr>
+	<tr th:each="user : ${users}">
+		<td th:text="${'id:'+user.id}">id</td>
+		<td th:text="${'username:'+user.username}">username</td>
+		<td th:text="${'password:'+user.password}">password</td>
+	</tr>	
+</table>
 </body>
 </html>

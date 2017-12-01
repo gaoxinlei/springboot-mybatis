@@ -6,12 +6,15 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -33,9 +36,20 @@ import org.springframework.transaction.PlatformTransactionManager;
 @MapperScan("net.self.mapper")
 public class Application {
 
+	//读取配置文件的属性
+	//共四种方式:http://www.imooc.com/article/18252
+	//一、@ConfigurationProperties方式(个人认为需要在配置文件中配置复杂对象如list或map或有级联对象属性时用它.
+	//二、使用@Value注解方式(只是简单字符串适用).
+	//三、使用Environment(同样适用于简单字符串).
+	//四、使用PropertiesLoaderUtils(个人认为简单字符串适用),复杂.
+	//测试用value注解和environment.
+	@Value("spring.datasource.url")
+	private String url;
+	
+	//测试使用Environment方式获取属性
+	@Autowired
+	private Environment env;
 	//DataSource
-	
-	
 	
 	//使用ConfigurationProperties导入配置在application.properties中的数据源信息
 	@ConfigurationProperties(prefix="spring.datasource")
@@ -47,6 +61,9 @@ public class Application {
 		properties.setDriverClassName("com.mysql.jdbc.Driver");
 		properties.setUsername("root");
 		properties.setPassword("root");
+		System.out.println("测试读取配置文件.");
+		System.out.println("@Value注解方式读取url:"+url);
+		System.out.println("自动注入Environment方式读取url:"+env.getProperty("spring.datasource.url"));
 		return new org.apache.tomcat.jdbc.pool.DataSource(properties);
 	}
 	
